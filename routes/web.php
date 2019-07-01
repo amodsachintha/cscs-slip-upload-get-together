@@ -11,6 +11,9 @@
 |
 */
 
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -18,3 +21,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::post('/45427346a3dea51c7a10fe6e3584f267','HomeController@handleYourDetailsSave')->name('handleYourDetailsSave');
+Route::post('/d8c046f6559df69ff6c7638136d1ab11','HomeController@handlePlusOneSave')->name('handlePlusOneSave');
+Route::post('/88e7d1fe65ee9adfc371111db727802c','HomeController@handleSlipUpload')->name('handleSlipUpload');
+
+
