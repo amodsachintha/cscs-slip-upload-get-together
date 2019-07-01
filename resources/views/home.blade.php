@@ -136,6 +136,7 @@
                                     <div class="form-group">
                                         <label for="slipUpload">Upload Payment Slip</label>
                                         <input type="file" class="form-control-file" id="slipUpload" name="slipUpload" {{isset($p) ? '': 'disabled'}} {{$paySlipUploaded ? 'disabled':''}} required>
+                                        <small class="form-text text-muted">Upload image/jpeg, image/jpg, image/png, image/bmp files only.</small>
                                     </div>
                                     <button type="submit" class="btn btn-primary btn-block" {{isset($p) ? '': 'disabled'}} {{$paySlipUploaded ? 'disabled':''}}>Upload</button>
                                 </form>

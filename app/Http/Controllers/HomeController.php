@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Person;
 use App\PlusOne;
-use foo\bar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class HomeController extends Controller
 {
@@ -38,6 +39,23 @@ class HomeController extends Controller
 
 
     public function handleYourDetailsSave(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'full_name' => 'string|min:3|required',
+            'it_number' => 'string|min:9|max:11|required',
+            'grad_year' => 'numeric|min:2000|max:2020|required',
+            'grad_month' => ['required', Rule::in(['march', 'august'])],
+            'personal_email' => 'email|required',
+            'work_email' => 'email|nullable',
+            'phone' => 'string|size:10|required',
+            'is_plus_one' => ['sometimes', Rule::in(['on'])],
+            'total_amount' => 'numeric|min:3000|max:6000|required'
+        ]);
+        if ($validator->fails()) {
+            foreach ($validator->errors()->all() as $err) {
+                toastr()->error($err);
+            }
+            return back()->withInput($request->all());
+        }
         $person = Auth::user()->person;
         if ($person instanceof Person) {
             $person->fill($request->all());
@@ -54,6 +72,16 @@ class HomeController extends Controller
     }
 
     public function handlePlusOneSave(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'full_name' => 'string|min:3|required',
+            'nic' => 'string|min:9|max:15|required'
+        ]);
+        if ($validator->fails()) {
+            foreach ($validator->errors()->all() as $err) {
+                toastr()->error($err);
+            }
+            return back();
+        }
         $plusOne = Auth::user()->person->plusOne;
         if ($plusOne instanceof PlusOne) {
             $plusOne->fill($request->all());
@@ -72,6 +100,14 @@ class HomeController extends Controller
     }
 
     public function handleSlipUpload(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'slipUpload' => 'image|required'
+        ]);
+
+        if ($validator->fails()) {
+            toastr()->error($validator->errors()->first());
+            return back();
+        }
         $path = Storage::putFile('public', $request->file('slipUpload'));
         $person = Auth::user()->person;
         $person->pay_slip_filename = str_replace('public/', '', $path);
