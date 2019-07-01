@@ -42,6 +42,7 @@ class HomeController extends Controller
         if ($person instanceof Person) {
             $person->fill($request->all());
             $person->save();
+            toastr()->success('Your details saved successfully!');
             return back();
         }
         $newPerson = new Person();
@@ -57,6 +58,7 @@ class HomeController extends Controller
         if ($plusOne instanceof PlusOne) {
             $plusOne->fill($request->all());
             $plusOne->save();
+            toastr()->success('Your Plus One\'s details saved successfully!');
             return back();
         }
         $newPlusOne = new PlusOne();
