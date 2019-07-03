@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 @if(!$paySlipUploaded)
                     <div class="alert alert-info shadow" role="alert">
-                        Please enter your details first. Let us know if your're bringing a plus one. Finally upload the slip for the required amount.
+                        Please enter your details first. Let us know if your're bringing a plus one. Finally pay the required amount to the Bank (details in yellow box) and upload the payment/deposit slip.
                         (3000.00 LKR per person)
                     </div>
                 @else
@@ -122,6 +122,27 @@
                 </div>
             </div>
             <div class="col-md-4">
+                <div class="alert alert-warning shadow h5">
+                    <table class="table table-sm table-borderless">
+                        <tr>
+                            <td>Bank: </td>
+                            <td><strong>Bank of Ceylon</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Branch: </td>
+                            <td><strong>Jaffna</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Acc. Number: </td>
+                            <td><strong>0080305384</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Acc. Holder: </td>
+                            <td><strong>S. Benjamine</strong></td>
+                        </tr>
+                    </table>
+                </div>
+
                 <div class="card shadow ">
                     <div class="card-header text-center font-weight-bold {{$paySlipUploaded ? 'bg-success text-white':'bg-white'}}">Payment Summary</div>
                     <div class="card-body">
